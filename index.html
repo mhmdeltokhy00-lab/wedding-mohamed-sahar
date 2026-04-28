@@ -9,54 +9,77 @@
         :root { --gold: #d4af37; --dark: #000000; --cream: #fffdf2; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Amiri', serif; background-color: var(--dark); color: var(--cream); }
         
-        /* الرابط المباشر للصورة لضمان الظهور */
+        /* شاشة الباب - مخفية حتى يتم تحميل الصورة أو النقر */
         #portal-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://mhmdeltokhy00-lab.github.io/wedding-mohamed-sahar/gate.png') no-repeat center center;
-            background-size: cover; display: flex; justify-content: center; align-items: center; z-index: 100;
-            transition: all 1.5s ease-in-out;
+            background: var(--dark) url('gate.png') no-repeat center center;
+            background-size: cover; display: flex; justify-content: center; align-items: center; z-index: 999;
+            transition: all 1.2s ease-in-out;
         }
 
-        #portal-screen.open { transform: scale(2); opacity: 0; pointer-events: none; }
-        #knock-btn { background: rgba(0, 0, 0, 0.6); border: 2px solid var(--gold); color: var(--gold); padding: 15px 40px; font-size: 22px; cursor: pointer; border-radius: 50px; position: absolute; bottom: 15%; font-weight: bold; backdrop-filter: blur(5px); }
+        #portal-screen.open { transform: translateY(-100%); opacity: 0; pointer-events: none; }
         
+        #knock-btn { 
+            background: rgba(0, 0, 0, 0.7); border: 2px solid var(--gold); color: var(--gold); 
+            padding: 15px 40px; font-size: 22px; cursor: pointer; border-radius: 50px; 
+            font-weight: bold; backdrop-filter: blur(5px); box-shadow: 0 0 20px rgba(212,175,55,0.4);
+        }
+        
+        /* شاشة المحتوى - مخفية في البداية */
         #content-screen {
             position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://mhmdeltokhy00-lab.github.io/wedding-mohamed-sahar/gate.png');
-            background-size: cover; background-position: center; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 50px 20px; box-sizing: border-box; text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('gate.png');
+            background-size: cover; background-position: center; overflow-y: auto; 
+            display: flex; flex-direction: column; align-items: center; padding: 50px 20px; 
+            box-sizing: border-box; text-align: center; visibility: hidden;
         }
 
-        .names { font-size: 3.5rem; color: var(--gold); margin: 10px 0; }
-        .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.05); padding: 20px; border-radius: 15px; width: 90%; max-width: 450px; margin: 20px 0; }
+        #content-screen.visible { visibility: visible; }
+
+        .names { font-size: 3.2rem; color: var(--gold); margin: 10px 0; text-shadow: 0 0 10px rgba(0,0,0,1); }
+        .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.05); padding: 25px; border-radius: 15px; width: 90%; max-width: 450px; margin: 20px 0; backdrop-filter: blur(10px); }
         #timer { display: flex; gap: 15px; margin: 20px 0; }
         .timer-unit { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 10px; border-radius: 10px; min-width: 65px; }
         .timer-unit span { display: block; font-size: 1.8rem; color: var(--gold); font-weight: bold; }
-        .map-btn { color: var(--gold); text-decoration: none; border-bottom: 1px dashed var(--gold); }
-        .confirm-btn { background: var(--gold); color: black; border: none; padding: 12px 30px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; }
+        .map-btn { color: var(--gold); text-decoration: none; border-bottom: 1px dashed var(--gold); margin-top: 15px; display: inline-block; }
+        .confirm-btn { background: var(--gold); color: black; border: none; padding: 12px 30px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; }
         input { width: 100%; padding: 12px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border: 1px solid #444; color: white; border-radius: 8px; text-align: center; }
     </style>
 </head>
 <body>
-    <div id="portal-screen"><button id="knock-btn" onclick="document.getElementById('portal-screen').classList.add('open')">تفضلوا بالدخول</button></div>
+    <div id="portal-screen">
+        <button id="knock-btn" onclick="openInvitation()">تفضلوا بالدخول</button>
+    </div>
+
     <div id="content-screen">
+        <p style="font-size: 1.2rem;">يتشرف محمد & سحر بدعوتكم</p>
         <h1 class="names">محمد & سحر</h1>
+        <p>لحضور حفل زفافهما المبارك</p>
         <div class="card">
-            <p>📅 الاثنين 18 مايو 2026</p>
-            <p>🕓 الساعة 4:00 عصراً</p>
-            <p>📍 مسجد محمد فريد خميس</p>
-            <a href="https://maps.app.goo.gl/YourMapLink" target="_blank" class="map-btn">📍 الموقع على الخريطة</a>
+            <p>📅 الاثنين <strong>18 مايو 2026</strong></p>
+            <p>🕓 الساعة <strong>4:00 عصراً</strong></p>
+            <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
+            <p>العاشر من رمضان - منطقة البنوك</p>
+            <a href="http://googleusercontent.com/maps.google.com/5" target="_blank" class="map-btn">📍 عرض الموقع على الخريطة</a>
         </div>
         <div id="timer">
             <div class="timer-unit"><span id="days">00</span>يوم</div>
             <div class="timer-unit"><span id="hours">00</span>ساعة</div>
             <div class="timer-unit"><span id="mins">00</span>دقيقة</div>
         </div>
-        <div style="width: 90%; max-width: 400px;">
+        <div style="width: 90%; max-width: 400px; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;">
             <input type="text" id="gName" placeholder="أدخل اسمك الكريم">
-            <button class="confirm-btn" onclick="alert('تم تأكيد حضورك يا أ/ ' + document.getElementById('gName').value)">تأكيد الحضور</button>
+            <button class="confirm-btn" onclick="confirmGuest()">تأكيد الحضور</button>
+            <p id="msg" style="color: #4CAF50; margin-top: 10px;"></p>
         </div>
     </div>
+
     <script>
+        function openInvitation() {
+            document.getElementById('portal-screen').classList.add('open');
+            document.getElementById('content-screen').classList.add('visible');
+        }
+
         const target = new Date("May 18, 2026 16:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -67,6 +90,14 @@
                 document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             }
         }, 1000);
+
+        function confirmGuest() {
+            const name = document.getElementById('gName').value;
+            if(name) {
+                document.getElementById('msg').innerText = "تم تأكيد حضورك يا أ/ " + name;
+                document.getElementById('gName').value = "";
+            }
+        }
     </script>
 </body>
 </html>
