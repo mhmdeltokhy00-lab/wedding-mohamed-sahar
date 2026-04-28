@@ -47,7 +47,6 @@
         .map-btn { background: var(--gold); color: black; border: 1px solid var(--gold); }
         .calendar-btn { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
         
-        /* استايل دفتر الزوار */
         .guestbook-section { width: 90%; max-width: 450px; background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3); margin-top: 30px; margin-bottom: 50px; }
         .guestbook-section h2 { color: var(--gold); margin-bottom: 15px; }
         
@@ -80,11 +79,11 @@
 
         <div class="card">
             <p>📅 الاثنين <strong>18 مايو 2026</strong></p>
-            <p>🕓 الساعة <strong>4:00 عصراً</strong></p>
+            <p>🕓 الساعة <strong>5:00 عصراً</strong></p>
             <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
             
             <a href="https://maps.app.goo.gl/r0" target="_blank" class="btn map-btn">📍 موقع المسجد</a>
-            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=زفاف+محمد+وسحر&dates=20260518T130000Z/20260518T150000Z&details=ننتظركم+بكل+حب+في+حفل+زفافنا&location=مسجد+محمد+فريد+خميس" target="_blank" class="btn calendar-btn">🗓️ أضف للمؤقت</a>
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=زفاف+محمد+وسحر&dates=20260518T140000Z/20260518T160000Z&details=ننتظركم+بكل+حب+في+حفل+زفافنا&location=مسجد+محمد+فريد+خميس" target="_blank" class="btn calendar-btn">🗓️ أضف للمؤقت</a>
         </div>
 
         <div id="timer">
@@ -118,7 +117,8 @@
             document.getElementById('content-screen').classList.add('visible');
         }
 
-        const target = new Date("May 18, 2026 16:00:00").getTime();
+        // تحديث العداد التنازلي للساعة 17:00 (5 عصراً)
+        const target = new Date("May 18, 2026 17:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
             const diff = target - now;
@@ -131,7 +131,6 @@
 
         const myNumber = "201003141420";
 
-        // وظيفة تأكيد الحضور
         function confirmAttendance() {
             const name = document.getElementById('rsvpName').value;
             if(name.trim() !== "") {
@@ -140,7 +139,6 @@
             } else { alert("يرجى إدخال الاسم أولاً"); }
         }
 
-        // وظيفة إرسال كلمة للعروسين (دفتر الزوار)
         function sendWish() {
             const name = document.getElementById('guestName').value;
             const wish = document.getElementById('guestWish').value;
