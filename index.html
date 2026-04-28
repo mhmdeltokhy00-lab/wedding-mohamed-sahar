@@ -1,103 +1,105 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة زفاف محمد وسحر</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --gold: #d4af37; --dark: #000000; --cream: #fffdf2; }
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Amiri', serif; background-color: var(--dark); color: var(--cream); }
-        
-        /* شاشة الباب - مخفية حتى يتم تحميل الصورة أو النقر */
-        #portal-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--dark) url('gate.png') no-repeat center center;
-            background-size: cover; display: flex; justify-content: center; align-items: center; z-index: 999;
-            transition: all 1.2s ease-in-out;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دعوة كتب كتاب محمد وسحر</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet"><style>
+:root { --gold:#d4af37; --dark:#000; --cream:#fffdf2; }
+body,html{
+ margin:0; padding:0; height:100%; font-family:'Amiri',serif;
+ background:#000; color:var(--cream); overflow:hidden;
+}
 
-        #portal-screen.open { transform: translateY(-100%); opacity: 0; pointer-events: none; }
-        
-        #knock-btn { 
-            background: rgba(0, 0, 0, 0.7); border: 2px solid var(--gold); color: var(--gold); 
-            padding: 15px 40px; font-size: 22px; cursor: pointer; border-radius: 50px; 
-            font-weight: bold; backdrop-filter: blur(5px); box-shadow: 0 0 20px rgba(212,175,55,0.4);
-        }
-        
-        /* شاشة المحتوى - مخفية في البداية */
-        #content-screen {
-            position: absolute; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('gate.png');
-            background-size: cover; background-position: center; overflow-y: auto; 
-            display: flex; flex-direction: column; align-items: center; padding: 50px 20px; 
-            box-sizing: border-box; text-align: center; visibility: hidden;
-        }
+/* شاشة البداية */
+#portal{
+ position:fixed; width:100%; height:100%;
+ background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+ url('https://images.unsplash.com/photo-1529634894190-1a7caa1c96d6');
+ background-size:cover; display:flex; justify-content:center; align-items:center;
+ transition:1s;
+}
 
-        #content-screen.visible { visibility: visible; }
+#portal.hide{ opacity:0; transform:scale(1.2); pointer-events:none; }
 
-        .names { font-size: 3.2rem; color: var(--gold); margin: 10px 0; text-shadow: 0 0 10px rgba(0,0,0,1); }
-        .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.05); padding: 25px; border-radius: 15px; width: 90%; max-width: 450px; margin: 20px 0; backdrop-filter: blur(10px); }
-        #timer { display: flex; gap: 15px; margin: 20px 0; }
-        .timer-unit { background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); padding: 10px; border-radius: 10px; min-width: 65px; }
-        .timer-unit span { display: block; font-size: 1.8rem; color: var(--gold); font-weight: bold; }
-        .map-btn { color: var(--gold); text-decoration: none; border-bottom: 1px dashed var(--gold); margin-top: 15px; display: inline-block; }
-        .confirm-btn { background: var(--gold); color: black; border: none; padding: 12px 30px; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; cursor: pointer; }
-        input { width: 100%; padding: 12px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border: 1px solid #444; color: white; border-radius: 8px; text-align: center; }
-    </style>
-</head>
-<body>
-    <div id="portal-screen">
-        <button id="knock-btn" onclick="openInvitation()">تفضلوا بالدخول</button>
-    </div>
+button{
+ background:var(--gold); border:none; padding:15px 40px;
+ font-size:20px; border-radius:40px; cursor:pointer;
+ box-shadow:0 0 20px rgba(212,175,55,.6);
+}
 
-    <div id="content-screen">
-        <p style="font-size: 1.2rem;">يتشرف محمد & سحر بدعوتكم</p>
-        <h1 class="names">محمد & سحر</h1>
-        <p>لحضور حفل زفافهما المبارك</p>
-        <div class="card">
-            <p>📅 الاثنين <strong>18 مايو 2026</strong></p>
-            <p>🕓 الساعة <strong>4:00 عصراً</strong></p>
-            <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
-            <p>العاشر من رمضان - منطقة البنوك</p>
-            <a href="http://googleusercontent.com/maps.google.com/5" target="_blank" class="map-btn">📍 عرض الموقع على الخريطة</a>
-        </div>
-        <div id="timer">
-            <div class="timer-unit"><span id="days">00</span>يوم</div>
-            <div class="timer-unit"><span id="hours">00</span>ساعة</div>
-            <div class="timer-unit"><span id="mins">00</span>دقيقة</div>
-        </div>
-        <div style="width: 90%; max-width: 400px; background: rgba(0,0,0,0.5); padding: 20px; border-radius: 15px;">
-            <input type="text" id="gName" placeholder="أدخل اسمك الكريم">
-            <button class="confirm-btn" onclick="confirmGuest()">تأكيد الحضور</button>
-            <p id="msg" style="color: #4CAF50; margin-top: 10px;"></p>
-        </div>
-    </div>
+/* المحتوى */
+#content{
+ position:absolute; width:100%; height:100%;
+ display:flex; flex-direction:column; align-items:center;
+ justify-content:center; text-align:center;
+ background:linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.9));
+ opacity:0; transition:1s;
+}
 
-    <script>
-        function openInvitation() {
-            document.getElementById('portal-screen').classList.add('open');
-            document.getElementById('content-screen').classList.add('visible');
-        }
+#content.show{ opacity:1; }
 
-        const target = new Date("May 18, 2026 16:00:00").getTime();
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = target - now;
-            if(diff > 0) {
-                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
-                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            }
-        }, 1000);
+.names{ font-size:3rem; color:var(--gold); }
+.card{
+ border:1px solid var(--gold);
+ padding:20px; border-radius:15px; margin:20px;
+ background:rgba(255,255,255,.05);
+}
 
-        function confirmGuest() {
-            const name = document.getElementById('gName').value;
-            if(name) {
-                document.getElementById('msg').innerText = "تم تأكيد حضورك يا أ/ " + name;
-                document.getElementById('gName').value = "";
-            }
-        }
-    </script>
-</body>
+#timer{ display:flex; gap:10px; }
+.timer-box{ border:1px solid var(--gold); padding:10px; border-radius:10px; }
+.timer-box span{ display:block; font-size:22px; color:var(--gold); }
+
+input{
+ padding:10px; width:80%; margin-top:10px;
+ border-radius:8px; border:none; text-align:center;
+}
+
+.success{ color:#4CAF50; margin-top:10px; }
+
+</style></head><body><div id="portal">
+ <button onclick="openInvite()">اضغط للدخول</button>
+</div><div id="content">
+ <p>يتشرف محمد & سحر بدعوتكم</p>
+ <h1 class="names">محمد & سحر</h1>
+ <p>لحضور كتب كتابهما</p> <div class="card">
+  <p>📅 الاثنين 18 مايو 2026</p>
+  <p>🕓 4:00 عصراً</p>
+  <p>📍 مسجد محمد فريد خميس</p>
+  <a href="https://maps.google.com/?q=مسجد+محمد+فريد+خميس" target="_blank">عرض الموقع</a>
+ </div> <div id="timer">
+  <div class="timer-box"><span id="d">0</span>يوم</div>
+  <div class="timer-box"><span id="h">0</span>ساعة</div>
+  <div class="timer-box"><span id="m">0</span>دقيقة</div>
+  <div class="timer-box"><span id="s">0</span>ثانية</div>
+ </div> <input id="name" placeholder="اكتب اسمك">
+ <button onclick="saveName()">تأكيد الحضور</button>
+ <div class="success" id="msg"></div>
+</div><script>
+function openInvite(){
+ document.getElementById('portal').classList.add('hide');
+ document.getElementById('content').classList.add('show');
+}
+
+/* تايمر */
+const target=new Date("2026-05-18T16:00:00").getTime();
+setInterval(()=>{
+ let now=new Date().getTime();
+ let diff=target-now;
+ if(diff>0){
+ document.getElementById('d').innerText=Math.floor(diff/86400000);
+ document.getElementById('h').innerText=Math.floor(diff%86400000/3600000);
+ document.getElementById('m').innerText=Math.floor(diff%3600000/60000);
+ document.getElementById('s').innerText=Math.floor(diff%60000/1000);
+ }
+},1000);
+
+/* حفظ الاسم */
+function saveName(){
+ let n=document.getElementById('name').value;
+ if(!n) return;
+ localStorage.setItem('guest',n);
+ document.getElementById('msg').innerText="تم تأكيد حضورك يا "+n;
+ document.getElementById('name').value="";
+}
+</script></body>
 </html>
