@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>دعوة زفاف محمد & سحر</title>
+    
     <meta property="og:title" content="دعوة زفاف محمد & سحر">
     <meta property="og:description" content="ننتظركم بكل حب في يوم فرحنا - 18 مايو 2026">
     <meta property="og:image" content="https://mhmdeltokhy00-lab.github.io/wedding-mohamed-sahar/gate.jpg">
-    <meta property="og:url" content="https://mhmdeltokhy00-lab.github.io/wedding-mohamed-sahar/">
 
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --dark: #000000; --cream: #fffdf2; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Amiri', serif; background-color: var(--dark); color: var(--cream); }
         
+        /* شاشة البوابة الخارجية */
         #portal-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--dark) url('gate.jpg') no-repeat center center;
             background-size: cover; display: flex; justify-content: center; align-items: center; z-index: 999;
             transition: all 1.5s cubic-bezier(0.7, 0, 0.3, 1);
         }
-
         #portal-screen.open { transform: translateY(-100%); opacity: 0; pointer-events: none; }
         
         #knock-btn { 
@@ -31,6 +30,7 @@
             position: absolute; bottom: 15%;
         }
         
+        /* شاشة المحتوى الداخلي */
         #content-screen {
             position: absolute; width: 100%; height: 100%;
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('gate.jpg');
@@ -39,26 +39,23 @@
             box-sizing: border-box; text-align: center; visibility: hidden; opacity: 0;
             transition: opacity 1s ease-in;
         }
-
         #content-screen.visible { visibility: visible; opacity: 1; }
 
         .names { font-size: 3.5rem; color: var(--gold); margin: 10px 0; }
         .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.08); padding: 25px; border-radius: 20px; width: 90%; max-width: 450px; margin: 25px 0; backdrop-filter: blur(12px); }
+        
         #timer { display: flex; gap: 15px; margin: 25px 0; }
         .timer-unit { background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold); padding: 12px; border-radius: 12px; min-width: 70px; }
         .timer-unit span { display: block; font-size: 2rem; color: var(--gold); font-weight: bold; }
         
-        .map-btn { 
-            background: var(--gold); color: black; text-decoration: none; padding: 12px 25px; 
-            border-radius: 10px; margin-top: 15px; display: inline-block; font-weight: bold;
-            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-        }
-
-        .confirm-btn { background: var(--gold); color: black; border: none; padding: 15px 30px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        .map-btn { background: var(--gold); color: black; text-decoration: none; padding: 12px 25px; border-radius: 10px; margin-top: 15px; display: inline-block; font-weight: bold; }
+        .confirm-btn { background: #25D366; color: white; border: none; padding: 15px 30px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 15px; cursor: pointer; font-size: 1.1rem; }
         input { width: 100%; padding: 15px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 10px; text-align: center; }
     </style>
 </head>
 <body>
+
+    <audio id="weddingSong" src="song.mp3" loop></audio>
 
     <div id="portal-screen">
         <button id="knock-btn" onclick="openInvitation()">تفضلوا بالدخول</button>
@@ -72,8 +69,7 @@
             <p>📅 الاثنين <strong>18 مايو 2026</strong></p>
             <p>🕓 الساعة <strong>4:00 عصراً</strong></p>
             <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
-            <p>العاشر من رمضان - منطقة البنوك</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=مسجد+محمد+فريد+خميس+العاشر+من+رمضان" target="_blank" class="map-btn">📍 عرض الموقع على الخريطة</a>
+            <a href="https://maps.app.goo.gl/Yp9P98R898R898" target="_blank" class="map-btn">📍 موقع المسجد على الخريطة</a>
         </div>
 
         <div id="timer">
@@ -83,20 +79,26 @@
         </div>
 
         <div style="width: 90%; max-width: 400px; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.2);">
-            <input type="text" id="gName" placeholder="أدخل اسمك الكريم لتأكيد الحضور">
-            <button class="confirm-btn" onclick="confirmGuest()">تأكيد الحضور</button>
-            <p id="msg" style="color: #4CAF50; margin-top: 15px; font-weight: bold;"></p>
+            <p style="margin-bottom: 15px;">يسعدنا تأكيد حضوركم</p>
+            <input type="text" id="gName" placeholder="أدخل اسمك الكريم">
+            <button class="confirm-btn" onclick="confirmGuest()">تأكيد الحضور عبر واتساب ✅</button>
         </div>
-        
+
         <p style="margin-top: 50px; opacity: 0.6;">دامت دياركم عامرة بالأفراح</p>
     </div>
 
     <script>
         function openInvitation() {
+            // تشغيل الأغنية
+            const audio = document.getElementById('weddingSong');
+            audio.play().catch(error => console.log("Audio play failed:", error));
+            
+            // فتح البوابة
             document.getElementById('portal-screen').classList.add('open');
             document.getElementById('content-screen').classList.add('visible');
         }
 
+        // العداد التنازلي
         const target = new Date("May 18, 2026 16:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -108,11 +110,15 @@
             }
         }, 1000);
 
+        // تأكيد الحضور واتساب
         function confirmGuest() {
             const name = document.getElementById('gName').value;
+            const myNumber = "201003141420"; 
             if(name.trim() !== "") {
-                document.getElementById('msg').innerText = "تم تأكيد حضورك بنجاح يا أ/ " + name;
-                document.getElementById('gName').value = "";
+                const msg = `أهلاً يا عريس، أنا ${name}، بأكد لك حضوري الفرح إن شاء الله. ألف مبروك!`;
+                window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+            } else {
+                alert("يرجى إدخال الاسم أولاً");
             }
         }
     </script>
