@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
             color: var(--cream);
         }
 
-        /* Loading Screen */
+        /* شاشة التحميل */
         #loader {
             position: fixed;
             width: 100%;
@@ -58,188 +58,145 @@
             100% { transform: rotate(1800deg); }
         }
 
-        /* Portal Screen (The Door) */
+        /* شاشة البوابة (قبل الفتح) */
         #portal-screen {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: url('https://raw.githubusercontent.com/google/google-ai-studio-examples/main/files/image_1.png') no-repeat center center;
+            background: url('gate.png') no-repeat center center;
             background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 10;
-            transition: transform 1s cubic-bezier(0.6, 0.05, 0.2, 1);
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
         #portal-screen.open {
-            transform: translateX(100%);
+            transform: scale(1.5) opacity(0);
+            pointer-events: none;
+            opacity: 0;
         }
 
         #knock-btn {
-            background: none;
-            border: 3px solid var(--gold);
+            background: rgba(26, 26, 26, 0.7);
+            border: 2px solid var(--gold);
             color: var(--gold);
-            padding: 15px 40px;
-            font-size: 24px;
+            padding: 12px 35px;
+            font-size: 20px;
             cursor: pointer;
             border-radius: 50px;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             transition: all 0.3s;
             position: absolute;
-            bottom: 10%;
+            bottom: 15%;
+            font-weight: bold;
         }
 
-        #knock-btn:hover {
-            background-color: var(--gold);
-            color: var(--dark);
-        }
-
-        /* Content Screen (The Details) */
+        /* شاشة المحتوى (بعد الفتح) */
         #content-screen {
             position: absolute;
             width: 100%;
             height: 100%;
             background-color: var(--dark);
-            background-image: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.9)), url('https://raw.githubusercontent.com/google/google-ai-studio-examples/main/files/image_1.png');
+            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('gate.png');
             background-size: cover;
             background-position: center;
             overflow-y: auto;
             display: none;
             flex-direction: column;
             align-items: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             box-sizing: border-box;
         }
 
         #content-screen.active {
             display: flex;
-            animation: fadeIn 1s forwards;
+            animation: fadeIn 1.5s forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .details-header {
-            text-align: center;
-            color: var(--gold);
-            margin-bottom: 40px;
-        }
-
-        .names {
-            font-size: 3em;
-            margin: 10px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
+        .details-header { text-align: center; color: var(--gold); margin-bottom: 30px; }
+        .names { font-size: 3.5em; margin: 15px 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
 
         .date-location {
-            border-top: 2px solid var(--gold);
-            border-bottom: 2px solid var(--gold);
-            padding: 20px;
+            border: 1px solid var(--gold);
+            padding: 25px;
             margin: 20px 0;
             text-align: center;
-            width: 80%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 450px;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 15px;
         }
 
-        .date-location p {
-            margin: 10px 0;
-            font-size: 1.2em;
-        }
+        .date-location p { margin: 12px 0; font-size: 1.3em; }
 
-        /* Countdown */
-        #countdown {
-            display: flex;
-            gap: 15px;
-            margin: 30px 0;
-        }
-
+        /* العداد التنازلي */
+        #countdown { display: flex; gap: 10px; margin: 25px 0; }
         .cd-box {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.15);
             border: 1px solid var(--gold);
-            padding: 15px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             text-align: center;
-            min-width: 60px;
+            min-width: 70px;
         }
+        .cd-num { font-size: 1.8em; color: var(--gold); font-weight: bold; display: block; }
+        .cd-label { font-size: 0.9em; }
 
-        .cd-num {
-            font-size: 2em;
-            color: var(--gold);
-            display: block;
-        }
-
-        .cd-label {
-            font-size: 0.8em;
-            text-transform: uppercase;
-        }
-
-        /* RSVP Form */
+        /* تأكيد الحضور */
         #rsvp {
-            margin-top: 40px;
-            width: 80%;
+            margin-top: 30px;
+            width: 90%;
             max-width: 400px;
             text-align: center;
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
         }
-
         #rsvp input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid #555;
-            color: white;
-            border-radius: 5px;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; margin: 15px 0;
+            background: rgba(255,255,255,0.1); border: 1px solid #444;
+            color: white; border-radius: 8px; box-sizing: border-box; text-align: center;
         }
-
         #rsvp button {
-            background: var(--gold);
-            border: none;
-            color: var(--dark);
-            padding: 10px 30px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
+            background: var(--gold); border: none; color: var(--dark);
+            padding: 12px 40px; font-size: 18px; border-radius: 8px;
+            cursor: pointer; font-weight: bold; width: 100%;
         }
 
         .map-link {
-            color: var(--gold);
-            text-decoration: none;
-            margin-top: 20px;
-            display: block;
-            border-bottom: 1px solid var(--gold);
+            color: var(--gold); text-decoration: none; margin-top: 15px;
+            display: inline-block; font-size: 1.1em; border-bottom: 1px dashed var(--gold);
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="loader">
-        <div class="lds-hourglass"></div>
-    </div>
+    <div id="loader"><div class="lds-hourglass"></div></div>
 
     <div id="portal-screen">
-        <button id="knock-btn">اطرقوا الباب لفتح الدعوة</button>
+        <button id="knock-btn">تفضلوا بالدخول</button>
     </div>
 
     <div id="content-screen">
         <div class="details-header">
-            <p>يَسُرُّنا دَعوَتُكُم لِحُضور حَفلِ زِفافِ</p>
+            <p style="font-size: 1.2em; letter-spacing: 2px;">يَسُرُّنا دَعوَتُكُم لِحُضور حَفلِ زِفافِ</p>
             <h1 class="names">محمد & سحر</h1>
-            <p>وذلك بمشيئة الله تعالى</p>
+            <p>بارك الله لهما وبارك عليهما وجمع بينهما في خير</p>
         </div>
 
         <div class="date-location">
-            <p><strong>يوم الاثنين</strong></p>
-            <p><strong>18 / 05 / 2026</strong></p>
-            <p>في تمام الساعة <strong>الرابعة عصراً</strong></p>
-            <p>المكان:</p>
-            <p><strong>مسجد محمد فريد</strong></p>
-            <p>العاشر من رمضان</p>
-            <a href="https://maps.app.goo.gl/r6f1S5p8Uf9K8XfL6" target="_blank" class="map-link">📍 عرض الموقع على الخريطة</a>
+            <p>📅 <strong>يوم الاثنين</strong></p>
+            <p>📅 <strong>18 / 05 / 2026</strong></p>
+            <p>🕓 الساعة <strong>الرابعة عصراً</strong></p>
+            <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.3); margin: 15px 0;">
+            <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
+            <p>العاشر من رمضان - منطقة البنوك</p>
+            <a href="https://www.google.com/maps/search/?api=1&query=مسجد+محمد+فريد+خميس+العاشر+من+رمضان" target="_blank" class="map-link">📍 عرض الموقع على الخريطة</a>
         </div>
 
         <div id="countdown">
@@ -250,62 +207,51 @@
 
         <div id="rsvp">
             <h3>تأكيد الحضور</h3>
-            <p>يسعدنا تأكيد حضوركم بالاسم</p>
-            <input type="text" placeholder="الاسم الكريم" id="guest-name">
-            <button onclick="confirmRSVP()">تأكيد</button>
-            <p id="rsvp-msg"></p>
+            <p>ننتظركم بكل حب، يرجى تأكيد حضوركم</p>
+            <input type="text" placeholder="اكتب اسمك هنا" id="guest-name">
+            <button onclick="confirmRSVP()">تأكيد الحضور</button>
+            <p id="rsvp-msg" style="margin-top: 15px; color: #4CAF50;"></p>
         </div>
+        
+        <p style="margin-top: 40px; font-size: 0.9em; opacity: 0.6;">دامت دياركم عامرة بالأفراح</p>
     </div>
 
     <script>
-        // 1. Loader
-        window.addEventListener('load', function() {
-            document.getElementById('loader').style.display = 'none';
-        });
+        // اخفاء شاشة التحميل عند الجاهزية
+        window.addEventListener('load', () => document.getElementById('loader').style.display = 'none');
 
-        // 2. Open Door Interaction
-        const portal = document.getElementById('portal-screen');
-        const content = document.getElementById('content-screen');
+        // حركة فتح الباب
         const knockBtn = document.getElementById('knock-btn');
-
         knockBtn.addEventListener('click', function() {
-            portal.classList.add('open');
+            document.getElementById('portal-screen').classList.add('open');
             setTimeout(() => {
-                portal.style.display = 'none';
-                content.classList.add('active');
-            }, 1000); // Matches CSS transition time
+                document.getElementById('portal-screen').style.display = 'none';
+                document.getElementById('content-screen').classList.add('active');
+            }, 1200);
         });
 
-        // 3. Countdown Timer (Target: May 18, 2026, 16:00)
+        // العداد التنازلي (موعد الفرح)
         const weddingDate = new Date('May 18, 2026 16:00:00').getTime();
-
-        const x = setInterval(function() {
+        const timer = setInterval(function() {
             const now = new Date().getTime();
-            const distance = weddingDate - now;
+            const dist = weddingDate - now;
 
-            if (distance < 0) {
-                clearInterval(x);
-                document.getElementById("countdown").innerHTML = "<h3>الف مبروك! لقد بدأ الفرح!</h3>";
+            if (dist < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "<h3 style='color:var(--gold)'>ألف مبروك للعروسين!</h3>";
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
-            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-            document.getElementById("mins").innerHTML = String(minutes).padStart(2, '0');
+            document.getElementById("days").innerHTML = Math.floor(dist / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerHTML = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerHTML = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
         }, 1000);
 
-        // 4. RSVP Interaction (Basic)
+        // وظيفة تأكيد الحضور
         function confirmRSVP() {
             const name = document.getElementById('guest-name').value;
-            if (name.trim() === "") {
-                alert("يرجى كتابة الاسم");
-                return;
-            }
-            document.getElementById('rsvp-msg').innerHTML = `شكراً لك أ/ ${name}. تم تسجيل حضورك!`;
+            if (!name) return alert("من فضلك ادخل الاسم");
+            document.getElementById('rsvp-msg').innerText = `أهلاً بك أ/ ${name}، تم تأكيد حضورك بنجاح!`;
             document.getElementById('guest-name').value = '';
         }
     </script>
