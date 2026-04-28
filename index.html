@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة زفاف محمد وسحر</title>
+    
+    <title>دعوة زفاف محمد & سحر</title>
+    <meta property="og:title" content="دعوة زفاف محمد & سحر">
+    <meta property="og:description" content="ننتظركم بكل حب في يوم فرحنا - 18 مايو 2026">
+    <meta property="og:image" content="https://mhmdeltokhy00-lab.github.io/wedding-mohamed-sahar/gate.jpg">
+    <meta property="og:url" content="https://mhmdeltokhy00-lab.github.io/wedding-mohamed-sahar/">
+
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --dark: #000000; --cream: #fffdf2; }
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Amiri', serif; background-color: var(--dark); color: var(--cream); }
         
-        /* شاشة البوابة الخارجية */
         #portal-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--dark) url('gate.jpg') no-repeat center center;
             background-size: cover; display: flex; justify-content: center; align-items: center; z-index: 999;
-            transition: all 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+            transition: all 1.5s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
         #portal-screen.open { transform: translateY(-100%); opacity: 0; pointer-events: none; }
@@ -26,7 +31,6 @@
             position: absolute; bottom: 15%;
         }
         
-        /* شاشة المحتوى الداخلي */
         #content-screen {
             position: absolute; width: 100%; height: 100%;
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('gate.jpg');
@@ -38,14 +42,20 @@
 
         #content-screen.visible { visibility: visible; opacity: 1; }
 
-        .names { font-size: 3.5rem; color: var(--gold); margin: 10px 0; text-shadow: 0 0 15px rgba(212,175,55,0.3); }
-        .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.08); padding: 25px; border-radius: 20px; width: 90%; max-width: 450px; margin: 25px 0; backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .names { font-size: 3.5rem; color: var(--gold); margin: 10px 0; }
+        .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.08); padding: 25px; border-radius: 20px; width: 90%; max-width: 450px; margin: 25px 0; backdrop-filter: blur(12px); }
         #timer { display: flex; gap: 15px; margin: 25px 0; }
         .timer-unit { background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold); padding: 12px; border-radius: 12px; min-width: 70px; }
         .timer-unit span { display: block; font-size: 2rem; color: var(--gold); font-weight: bold; }
-        .map-btn { color: var(--gold); text-decoration: none; border-bottom: 1px dashed var(--gold); margin-top: 15px; display: inline-block; font-size: 1.2rem; }
-        .confirm-btn { background: var(--gold); color: black; border: none; padding: 15px 30px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 15px; cursor: pointer; font-size: 1.1rem; }
-        input { width: 100%; padding: 15px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 10px; text-align: center; font-size: 1rem; }
+        
+        .map-btn { 
+            background: var(--gold); color: black; text-decoration: none; padding: 12px 25px; 
+            border-radius: 10px; margin-top: 15px; display: inline-block; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+        }
+
+        .confirm-btn { background: var(--gold); color: black; border: none; padding: 15px 30px; border-radius: 10px; width: 100%; font-weight: bold; margin-top: 15px; cursor: pointer; }
+        input { width: 100%; padding: 15px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 10px; text-align: center; }
     </style>
 </head>
 <body>
@@ -55,16 +65,15 @@
     </div>
 
     <div id="content-screen">
-        <p style="font-size: 1.4rem; letter-spacing: 1px;">يتشرف محمد & سحر بدعوتكم</p>
+        <p style="font-size: 1.4rem;">يتشرف محمد & سحر بدعوتكم</p>
         <h1 class="names">محمد & سحر</h1>
-        <p style="font-size: 1.1rem; opacity: 0.9;">لحضور حفل زفافهما المبارك</p>
         
         <div class="card">
             <p>📅 الاثنين <strong>18 مايو 2026</strong></p>
             <p>🕓 الساعة <strong>4:00 عصراً</strong></p>
             <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
             <p>العاشر من رمضان - منطقة البنوك</p>
-            <a href="https://maps.app.goo.gl/YourMapLinkHere" target="_blank" class="map-btn">📍 اضغط هنا لفتح الموقع على الخريطة</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=مسجد+محمد+فريد+خميس+العاشر+من+رمضان" target="_blank" class="map-btn">📍 عرض الموقع على الخريطة</a>
         </div>
 
         <div id="timer">
@@ -74,13 +83,12 @@
         </div>
 
         <div style="width: 90%; max-width: 400px; background: rgba(0,0,0,0.4); padding: 25px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.2);">
-            <p style="margin-bottom: 15px;">يسعدنا تأكيد حضوركم</p>
-            <input type="text" id="gName" placeholder="أدخل اسمك الكريم">
+            <input type="text" id="gName" placeholder="أدخل اسمك الكريم لتأكيد الحضور">
             <button class="confirm-btn" onclick="confirmGuest()">تأكيد الحضور</button>
             <p id="msg" style="color: #4CAF50; margin-top: 15px; font-weight: bold;"></p>
         </div>
-
-        <p style="margin-top: 60px; opacity: 0.6; font-size: 1rem; font-style: italic;">دامت دياركم عامرة بالأفراح</p>
+        
+        <p style="margin-top: 50px; opacity: 0.6;">دامت دياركم عامرة بالأفراح</p>
     </div>
 
     <script>
@@ -89,7 +97,6 @@
             document.getElementById('content-screen').classList.add('visible');
         }
 
-        // إعداد العداد التنازلي
         const target = new Date("May 18, 2026 16:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -104,10 +111,8 @@
         function confirmGuest() {
             const name = document.getElementById('gName').value;
             if(name.trim() !== "") {
-                document.getElementById('msg').innerText = "تم تأكيد حضورك بنجاح، ننتظرك بكل حب يا أ/ " + name;
+                document.getElementById('msg').innerText = "تم تأكيد حضورك بنجاح يا أ/ " + name;
                 document.getElementById('gName').value = "";
-            } else {
-                alert("يرجى إدخال الاسم");
             }
         }
     </script>
