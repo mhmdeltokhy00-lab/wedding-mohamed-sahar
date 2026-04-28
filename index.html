@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>دعوة زفاف محمد وسحر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
             --cream: #fffdf2;
-            --dark: #1a1a1a;
+            --dark: #000000;
         }
 
         body, html {
@@ -22,238 +23,176 @@
             color: var(--cream);
         }
 
-        /* شاشة التحميل */
-        #loader {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: var(--dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .lds-hourglass {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-        .lds-hourglass:after {
-            content: " ";
-            display: block;
-            border-radius: 50%;
-            width: 0;
-            height: 0;
-            margin: 8px;
-            box-sizing: border-box;
-            border: 32px solid var(--gold);
-            border-color: var(--gold) transparent var(--gold) transparent;
-            animation: lds-hourglass 1.2s infinite;
-        }
-        @keyframes lds-hourglass {
-            0% { transform: rotate(0); animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
-            50% { transform: rotate(900deg); animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
-            100% { transform: rotate(1800deg); }
-        }
-
-        /* شاشة البوابة (قبل الفتح) */
+        /* شاشة البوابة */
         #portal-screen {
-            position: absolute;
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             background: url('./gate.png') no-repeat center center;
-(
             background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10;
-            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+            z-index: 100;
+            transition: all 1.5s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
         #portal-screen.open {
-            transform: scale(1.5) opacity(0);
-            pointer-events: none;
+            transform: scale(2);
             opacity: 0;
+            pointer-events: none;
         }
 
         #knock-btn {
-            background: rgba(26, 26, 26, 0.7);
+            background: rgba(0, 0, 0, 0.6);
             border: 2px solid var(--gold);
             color: var(--gold);
-            padding: 12px 35px;
-            font-size: 20px;
+            padding: 15px 40px;
+            font-size: 22px;
             cursor: pointer;
             border-radius: 50px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transition: 0.3s;
             position: absolute;
             bottom: 15%;
             font-weight: bold;
+            backdrop-filter: blur(5px);
         }
 
-        /* شاشة المحتوى (بعد الفتح) */
+        /* شاشة المحتوى الداخلي */
         #content-screen {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: var(--dark);
-            background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('gate.png');
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('./gate.png');
             background-size: cover;
             background-position: center;
             overflow-y: auto;
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             box-sizing: border-box;
-        }
-
-        #content-screen.active {
-            display: flex;
-            animation: fadeIn 1.5s forwards;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .details-header { text-align: center; color: var(--gold); margin-bottom: 30px; }
-        .names { font-size: 3.5em; margin: 15px 0; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
-
-        .date-location {
-            border: 1px solid var(--gold);
-            padding: 25px;
-            margin: 20px 0;
             text-align: center;
+        }
+
+        .header { color: var(--gold); margin-bottom: 20px; }
+        .names { font-size: 3.5rem; margin: 10px 0; text-shadow: 0 0 10px rgba(212,175,55,0.5); }
+        
+        .card {
+            border: 1px solid var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            padding: 25px;
+            border-radius: 15px;
             width: 90%;
             max-width: 450px;
-            background: rgba(212, 175, 55, 0.05);
-            border-radius: 15px;
+            margin: 20px 0;
         }
 
-        .date-location p { margin: 12px 0; font-size: 1.3em; }
-
-        /* العداد التنازلي */
-        #countdown { display: flex; gap: 10px; margin: 25px 0; }
-        .cd-box {
-            background: rgba(212, 175, 55, 0.15);
+        .card p { font-size: 1.4rem; margin: 10px 0; line-height: 1.6; }
+        
+        /* العداد */
+        #timer { display: flex; gap: 15px; margin: 20px 0; }
+        .timer-unit {
+            background: rgba(212, 175, 55, 0.1);
             border: 1px solid var(--gold);
             padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            min-width: 70px;
+            border-radius: 10px;
+            min-width: 65px;
         }
-        .cd-num { font-size: 1.8em; color: var(--gold); font-weight: bold; display: block; }
-        .cd-label { font-size: 0.9em; }
+        .timer-unit span { display: block; font-size: 1.8rem; color: var(--gold); font-weight: bold; }
 
-        /* تأكيد الحضور */
-        #rsvp {
+        .map-btn {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--gold);
+            font-size: 1.1rem;
+        }
+
+        #rsvp-section {
             margin-top: 30px;
             width: 90%;
             max-width: 400px;
-            text-align: center;
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
-        }
-        #rsvp input {
-            width: 100%; padding: 12px; margin: 15px 0;
-            background: rgba(255,255,255,0.1); border: 1px solid #444;
-            color: white; border-radius: 8px; box-sizing: border-box; text-align: center;
-        }
-        #rsvp button {
-            background: var(--gold); border: none; color: var(--dark);
-            padding: 12px 40px; font-size: 18px; border-radius: 8px;
-            cursor: pointer; font-weight: bold; width: 100%;
         }
 
-        .map-link {
-            color: var(--gold); text-decoration: none; margin-top: 15px;
-            display: inline-block; font-size: 1.1em; border-bottom: 1px dashed var(--gold);
+        input {
+            width: 100%; padding: 12px; margin-bottom: 10px;
+            background: rgba(255,255,255,0.1); border: 1px solid #444;
+            color: white; border-radius: 8px; text-align: center;
         }
+
+        .confirm-btn {
+            background: var(--gold); color: black; border: none;
+            padding: 12px 30px; border-radius: 8px; cursor: pointer;
+            width: 100%; font-weight: bold; font-size: 1.1rem;
+        }
+
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="loader"><div class="lds-hourglass"></div></div>
-
     <div id="portal-screen">
-        <button id="knock-btn">تفضلوا بالدخول</button>
+        <button id="knock-btn" onclick="openDoor()">تفضلوا بالدخول</button>
     </div>
 
     <div id="content-screen">
-        <div class="details-header">
-            <p style="font-size: 1.2em; letter-spacing: 2px;">يَسُرُّنا دَعوَتُكُم لِحُضور حَفلِ زِفافِ</p>
+        <div class="header">
+            <p style="font-size: 1.3rem;">يتشرف محمد & سحر بدعوتكم</p>
             <h1 class="names">محمد & سحر</h1>
-            <p>بارك الله لهما وبارك عليهما وجمع بينهما في خير</p>
+            <p>لحضور حفل زفافهما المبارك</p>
         </div>
 
-        <div class="date-location">
-            <p>📅 <strong>يوم الاثنين</strong></p>
-            <p>📅 <strong>18 / 05 / 2026</strong></p>
-            <p>🕓 الساعة <strong>الرابعة عصراً</strong></p>
-            <hr style="border: 0; border-top: 1px solid rgba(212, 175, 55, 0.3); margin: 15px 0;">
+        <div class="card">
+            <p>📅 الاثنين <strong>18 مايو 2026</strong></p>
+            <p>🕓 الساعة <strong>4:00 عصراً</strong></p>
             <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
             <p>العاشر من رمضان - منطقة البنوك</p>
-            <a href="https://www.google.com/maps/search/?api=1&query=مسجد+محمد+فريد+خميس+العاشر+من+رمضان" target="_blank" class="map-link">📍 عرض الموقع على الخريطة</a>
+            <a href="https://maps.app.goo.gl/uXv7oY7Pz5zV7qfA8" target="_blank" class="map-btn">📍 اضغط هنا لفتح الموقع على الخريطة</a>
         </div>
 
-        <div id="countdown">
-            <div class="cd-box"><span class="cd-num" id="days">00</span><span class="cd-label">يوم</span></div>
-            <div class="cd-box"><span class="cd-num" id="hours">00</span><span class="cd-label">ساعة</span></div>
-            <div class="cd-box"><span class="cd-num" id="mins">00</span><span class="cd-label">دقيقة</span></div>
+        <div id="timer">
+            <div class="timer-unit"><span id="days">00</span>يوم</div>
+            <div class="timer-unit"><span id="hours">00</span>ساعة</div>
+            <div class="timer-unit"><span id="mins">00</span>دقيقة</div>
         </div>
 
-        <div id="rsvp">
-            <h3>تأكيد الحضور</h3>
-            <p>ننتظركم بكل حب، يرجى تأكيد حضوركم</p>
-            <input type="text" placeholder="اكتب اسمك هنا" id="guest-name">
-            <button onclick="confirmRSVP()">تأكيد الحضور</button>
-            <p id="rsvp-msg" style="margin-top: 15px; color: #4CAF50;"></p>
+        <div id="rsvp-section">
+            <p>يسعدنا تأكيد حضوركم</p>
+            <input type="text" id="guestName" placeholder="أدخل اسمك الكريم">
+            <button class="confirm-btn" onclick="confirm()">تأكيد الحضور</button>
+            <p id="msg" style="color: #4CAF50; margin-top: 10px;"></p>
         </div>
-        
-        <p style="margin-top: 40px; font-size: 0.9em; opacity: 0.6;">دامت دياركم عامرة بالأفراح</p>
+
+        <p style="margin-top: 50px; opacity: 0.5; font-size: 0.9rem;">دامت دياركم عامرة بالأفراح</p>
     </div>
 
     <script>
-        // اخفاء شاشة التحميل عند الجاهزية
-        window.addEventListener('load', () => document.getElementById('loader').style.display = 'none');
-
-        // حركة فتح الباب
-        const knockBtn = document.getElementById('knock-btn');
-        knockBtn.addEventListener('click', function() {
+        function openDoor() {
             document.getElementById('portal-screen').classList.add('open');
-            setTimeout(() => {
-                document.getElementById('portal-screen').style.display = 'none';
-                document.getElementById('content-screen').classList.add('active');
-            }, 1200);
-        });
+        }
 
-        // العداد التنازلي (موعد الفرح)
-        const weddingDate = new Date('May 18, 2026 16:00:00').getTime();
-        const timer = setInterval(function() {
+        // حساب الوقت
+        const target = new Date("May 18, 2026 16:00:00").getTime();
+        setInterval(() => {
             const now = new Date().getTime();
-            const dist = weddingDate - now;
-
-            if (dist < 0) {
-                clearInterval(timer);
-                document.getElementById("countdown").innerHTML = "<h3 style='color:var(--gold)'>ألف مبروك للعروسين!</h3>";
-                return;
+            const diff = target - now;
+            if(diff > 0) {
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             }
-
-            document.getElementById("days").innerHTML = Math.floor(dist / (1000 * 60 * 60 * 24));
-            document.getElementById("hours").innerHTML = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById("mins").innerHTML = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
         }, 1000);
 
-        // وظيفة تأكيد الحضور
-        function confirmRSVP() {
-            const name = document.getElementById('guest-name').value;
-            if (!name) return alert("من فضلك ادخل الاسم");
-            document.getElementById('rsvp-msg').innerText = `أهلاً بك أ/ ${name}، تم تأكيد حضورك بنجاح!`;
-            document.getElementById('guest-name').value = '';
+        function confirm() {
+            const name = document.getElementById('guestName').value;
+            if(name) {
+                document.getElementById('msg').innerText = "تم تأكيد حضورك، ننتظرك بكل حب يا أ/ " + name;
+                document.getElementById('guestName').value = "";
+            }
         }
     </script>
 </body>
