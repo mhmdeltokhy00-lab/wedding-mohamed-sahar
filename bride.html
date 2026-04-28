@@ -1,0 +1,313 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف محمد وسحر</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --cream: #fffdf2;
+            --dark: #1a1a1a;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Amiri', serif;
+            background-color: var(--dark);
+            color: var(--cream);
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .lds-hourglass {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+        .lds-hourglass:after {
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            width: 0;
+            height: 0;
+            margin: 8px;
+            box-sizing: border-box;
+            border: 32px solid var(--gold);
+            border-color: var(--gold) transparent var(--gold) transparent;
+            animation: lds-hourglass 1.2s infinite;
+        }
+        @keyframes lds-hourglass {
+            0% { transform: rotate(0); animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+            50% { transform: rotate(900deg); animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+            100% { transform: rotate(1800deg); }
+        }
+
+        /* Portal Screen (The Door) */
+        #portal-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/google/google-ai-studio-examples/main/files/image_1.png') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: transform 1s cubic-bezier(0.6, 0.05, 0.2, 1);
+        }
+
+        #portal-screen.open {
+            transform: translateX(100%);
+        }
+
+        #knock-btn {
+            background: none;
+            border: 3px solid var(--gold);
+            color: var(--gold);
+            padding: 15px 40px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transition: all 0.3s;
+            position: absolute;
+            bottom: 10%;
+        }
+
+        #knock-btn:hover {
+            background-color: var(--gold);
+            color: var(--dark);
+        }
+
+        /* Content Screen (The Details) */
+        #content-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--dark);
+            background-image: linear-gradient(rgba(26,26,26,0.9), rgba(26,26,26,0.9)), url('https://raw.githubusercontent.com/google/google-ai-studio-examples/main/files/image_1.png');
+            background-size: cover;
+            background-position: center;
+            overflow-y: auto;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 20px;
+            box-sizing: border-box;
+        }
+
+        #content-screen.active {
+            display: flex;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .details-header {
+            text-align: center;
+            color: var(--gold);
+            margin-bottom: 40px;
+        }
+
+        .names {
+            font-size: 3em;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .date-location {
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .date-location p {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        /* Countdown */
+        #countdown {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .cd-box {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .cd-num {
+            font-size: 2em;
+            color: var(--gold);
+            display: block;
+        }
+
+        .cd-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+        }
+
+        /* RSVP Form */
+        #rsvp {
+            margin-top: 40px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        #rsvp input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #555;
+            color: white;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #rsvp button {
+            background: var(--gold);
+            border: none;
+            color: var(--dark);
+            padding: 10px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .map-link {
+            color: var(--gold);
+            text-decoration: none;
+            margin-top: 20px;
+            display: block;
+            border-bottom: 1px solid var(--gold);
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="loader">
+        <div class="lds-hourglass"></div>
+    </div>
+
+    <div id="portal-screen">
+        <button id="knock-btn">اطرقوا الباب لفتح الدعوة</button>
+    </div>
+
+    <div id="content-screen">
+        <div class="details-header">
+            <p>يَسُرُّنا دَعوَتُكُم لِحُضور حَفلِ زِفافِ</p>
+            <h1 class="names">محمد & سحر</h1>
+            <p>وذلك بمشيئة الله تعالى</p>
+        </div>
+
+        <div class="date-location">
+            <p><strong>يوم الاثنين</strong></p>
+            <p><strong>18 / 05 / 2026</strong></p>
+            <p>في تمام الساعة <strong>الرابعة عصراً</strong></p>
+            <p>المكان:</p>
+            <p><strong>مسجد محمد فريد</strong></p>
+            <p>العاشر من رمضان</p>
+            <a href="https://maps.app.goo.gl/r6f1S5p8Uf9K8XfL6" target="_blank" class="map-link">📍 عرض الموقع على الخريطة</a>
+        </div>
+
+        <div id="countdown">
+            <div class="cd-box"><span class="cd-num" id="days">00</span><span class="cd-label">يوم</span></div>
+            <div class="cd-box"><span class="cd-num" id="hours">00</span><span class="cd-label">ساعة</span></div>
+            <div class="cd-box"><span class="cd-num" id="mins">00</span><span class="cd-label">دقيقة</span></div>
+        </div>
+
+        <div id="rsvp">
+            <h3>تأكيد الحضور</h3>
+            <p>يسعدنا تأكيد حضوركم بالاسم</p>
+            <input type="text" placeholder="الاسم الكريم" id="guest-name">
+            <button onclick="confirmRSVP()">تأكيد</button>
+            <p id="rsvp-msg"></p>
+        </div>
+    </div>
+
+    <script>
+        // 1. Loader
+        window.addEventListener('load', function() {
+            document.getElementById('loader').style.display = 'none';
+        });
+
+        // 2. Open Door Interaction
+        const portal = document.getElementById('portal-screen');
+        const content = document.getElementById('content-screen');
+        const knockBtn = document.getElementById('knock-btn');
+
+        knockBtn.addEventListener('click', function() {
+            portal.classList.add('open');
+            setTimeout(() => {
+                portal.style.display = 'none';
+                content.classList.add('active');
+            }, 1000); // Matches CSS transition time
+        });
+
+        // 3. Countdown Timer (Target: May 18, 2026, 16:00)
+        const weddingDate = new Date('May 18, 2026 16:00:00').getTime();
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "<h3>الف مبروك! لقد بدأ الفرح!</h3>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+            document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+            document.getElementById("mins").innerHTML = String(minutes).padStart(2, '0');
+        }, 1000);
+
+        // 4. RSVP Interaction (Basic)
+        function confirmRSVP() {
+            const name = document.getElementById('guest-name').value;
+            if (name.trim() === "") {
+                alert("يرجى كتابة الاسم");
+                return;
+            }
+            document.getElementById('rsvp-msg').innerHTML = `شكراً لك أ/ ${name}. تم تسجيل حضورك!`;
+            document.getElementById('guest-name').value = '';
+        }
+    </script>
+</body>
+</html>
