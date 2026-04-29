@@ -28,14 +28,14 @@
             background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('gate.jpg');
             background-size: cover; background-position: center; overflow-y: auto; 
             display: flex; flex-direction: column; align-items: center; padding: 40px 20px; 
-            box-sizing: border-box; text-align: center; visibility: hidden; opacity: 0; transition: opacity 1s ease-in;
+            box-sizing: border-box; text-align: center; visibility: hidden; opacity: 0; transition: opacity 1.5s ease-in;
         }
         #content-screen.visible { visibility: visible; opacity: 1; }
 
         .couple-img-container { margin: 20px 0; position: relative; display: inline-block; }
         .couple-img { width: 220px; height: 280px; object-fit: cover; border-radius: 100px 100px 20px 20px; border: 3px solid var(--gold); box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+        
         .romantic-text { font-style: italic; font-size: 1.5rem; color: var(--gold); margin: 15px 0; max-width: 320px; line-height: 1.4; }
-
         .names { font-size: 3.5rem; color: var(--gold); margin: 10px 0; }
         .card { border: 1px solid var(--gold); background: rgba(212, 175, 55, 0.08); padding: 20px; border-radius: 20px; width: 90%; max-width: 450px; margin: 15px 0; backdrop-filter: blur(10px); }
         
@@ -43,17 +43,15 @@
         .timer-unit { background: rgba(212, 175, 55, 0.15); border: 1px solid var(--gold); padding: 10px; border-radius: 12px; min-width: 65px; }
         .timer-unit span { display: block; font-size: 1.8rem; color: var(--gold); font-weight: bold; }
         
-        .btn { text-decoration: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; display: inline-block; margin: 5px; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+        .btn { text-decoration: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; display: inline-block; margin: 5px; font-size: 1rem; cursor: pointer; }
         .map-btn { background: var(--gold); color: black; border: 1px solid var(--gold); }
         .calendar-btn { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
         
         .guestbook-section { width: 90%; max-width: 450px; background: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 20px; border: 1px solid rgba(212,175,55,0.3); margin-top: 30px; margin-bottom: 50px; }
-        .guestbook-section h2 { color: var(--gold); margin-bottom: 15px; }
-        
-        input, textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 10px; text-align: center; box-sizing: border-box; font-family: 'Amiri', serif; font-size: 1.1rem; }
+        input, textarea { width: 100%; padding: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.1); border: 1px solid #555; color: white; border-radius: 10px; text-align: center; box-sizing: border-box; font-family: 'Amiri', serif; }
         textarea { height: 100px; resize: none; text-align: right; }
         
-        .submit-btn { width: 100%; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
+        .submit-btn { width: 100%; border: none; padding: 15px; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; margin-bottom: 10px; }
         .rsvp-btn { background: #25D366; color: white; }
         .wish-btn { background: var(--gold); color: black; }
     </style>
@@ -82,8 +80,9 @@
             <p>🕓 الساعة <strong>5:00 عصراً</strong></p>
             <p>📍 <strong>مسجد محمد فريد خميس</strong></p>
             
-            <a href="https://maps.app.goo.gl/r0" target="_blank" class="btn map-btn">📍 موقع المسجد</a>
-            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=زفاف+محمد+وسحر&dates=20260518T140000Z/20260518T160000Z&details=ننتظركم+بكل+حب+في+حفل+زفافنا&location=مسجد+محمد+فريد+خميس" target="_blank" class="btn calendar-btn">🗓️ أضف للمؤقت</a>
+            <a href="https://www.google.com/maps/search/?api=1&query=%D9%85%D8%B3%D8%AC%D8%AF+%D9%85%D8%AD%D9%85%D8%AF+%D9%81%D8%B1%D9%8A%D8%AF+%D8%AE%D9%85%D9%8A%D8%B3+%D8%A7%D9%84%D8%B9%D8%A7%D8%B4%D8%B1+%D9%85%D9%86+%D8%B1%D9%85%D8%B6%D8%A7%D9%86" target="_blank" class="btn map-btn">📍 موقع المسجد على الخريطة</a>
+            
+            <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=زفاف+محمد+وسحر&dates=20260518T140000Z/20260518T160000Z&details=ننتظركم+بكل+حب&location=مسجد+محمد+فريد+خميس" target="_blank" class="btn calendar-btn">🗓️ أضف للمؤقت</a>
         </div>
 
         <div id="timer">
@@ -93,31 +92,29 @@
         </div>
 
         <div class="guestbook-section">
-            <h2>تأكيد الحضور ✅</h2>
+            <h2 style="color: var(--gold);">تأكيد الحضور ✅</h2>
             <input type="text" id="rsvpName" placeholder="أدخل اسمك الكريم">
             <button class="submit-btn rsvp-btn" onclick="confirmAttendance()">تأكيد الحضور (واتساب)</button>
         </div>
 
         <div class="guestbook-section">
-            <h2>دفتر الزوار الرقمي ✍️</h2>
-            <p style="margin-bottom: 15px; opacity: 0.8;">اترك كلمة رقيقة للعروسين في ليلة العمر</p>
+            <h2 style="color: var(--gold);">دفتر الزوار الرقمي ✍️</h2>
             <input type="text" id="guestName" placeholder="الاسم">
             <textarea id="guestWish" placeholder="اكتب أمنياتك لنا هنا..."></textarea>
-            <button class="submit-btn wish-btn" onclick="sendWish()">إرسال الأمنيات للدخول في الدفتر</button>
+            <button class="submit-btn wish-btn" onclick="sendWish()">إرسال الأمنيات</button>
         </div>
 
-        <p style="margin-top: 20px; opacity: 0.6; font-size: 1rem; padding-bottom: 50px;">دامت دياركم عامرة بالأفراح</p>
+        <p style="margin-top: 20px; opacity: 0.6; padding-bottom: 50px;">دامت دياركم عامرة بالأفراح</p>
     </div>
 
     <script>
         function openInvitation() {
             const audio = document.getElementById('weddingSong');
-            audio.play().catch(e => console.log("Audio play failed"));
+            audio.play().catch(e => console.log("Audio logic"));
             document.getElementById('portal-screen').classList.add('open');
             document.getElementById('content-screen').classList.add('visible');
         }
 
-        // تحديث العداد التنازلي للساعة 17:00 (5 عصراً)
         const target = new Date("May 18, 2026 17:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -130,23 +127,19 @@
         }, 1000);
 
         const myNumber = "201003141420";
-
         function confirmAttendance() {
             const name = document.getElementById('rsvpName').value;
             if(name.trim() !== "") {
-                const msg = `✅ تأكيد حضور:\nأهلاً يا عريس، أنا ${name}، بأكد لك حضوري الفرح إن شاء الله. ألف مبروك!`;
-                window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`, '_blank');
-            } else { alert("يرجى إدخال الاسم أولاً"); }
+                window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent('✅ تأكيد حضور: ' + name)}`, '_blank');
+            } else { alert("يرجى إدخال الاسم"); }
         }
-
         function sendWish() {
             const name = document.getElementById('guestName').value;
             const wish = document.getElementById('guestWish').value;
             if(name.trim() !== "" && wish.trim() !== "") {
-                const msg = `✍️ رسالة من دفتر الزوار:\nمن: ${name}\nالأمنية: ${wish}`;
-                window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+                window.open(`https://wa.me/${myNumber}?text=${encodeURIComponent('✍️ من دفتر الزوار\nالاسم: ' + name + '\nالأمنية: ' + wish)}`, '_blank');
             } else { alert("يرجى ملء الاسم والرسالة"); }
         }
     </script>
 </body>
-</html> 
+</html>
